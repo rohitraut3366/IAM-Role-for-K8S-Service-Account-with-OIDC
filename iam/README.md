@@ -53,7 +53,7 @@ provider "aws" {
 }
 
 module "app" {
-  source         = "../modules/iam"
+  source         = "module-source-path"
   name           = "app"
   role_path      = "/"
   oidc_url       = "oidc.eks.ap-south-1.amazonaws.com/id/<id>"
