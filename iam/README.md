@@ -40,3 +40,38 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | n/a |
+
+
+## Example
+```
+variable "region" {
+  default = "ap-south-1"
+}
+
+provider "aws" {
+  region = var.region
+}
+
+module "app" {
+  source         = "../modules/iam"
+  name           = "app"
+  role_path      = "/"
+  oidc_url       = "oidc.eks.ap-south-1.amazonaws.com/id/<id>"
+  oidc_arn       = "arn:aws:iam::<account_id>:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/<id>"
+  namespace      = "default"
+  serviceaccount = "app"
+
+  iam_permissions = [
+    {
+      "actions" = [
+      ],
+      "resources" = []
+    }
+  ]
+}
+
+output "role_arn" {
+    value = module.app.role_arn
+}
+
+```
